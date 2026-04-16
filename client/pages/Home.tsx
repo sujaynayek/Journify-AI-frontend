@@ -35,7 +35,7 @@ const destinations = [
     price: "₹6,000",
     duration: "4 Days Trip",
     image:
-      "https://images.unsplash.com/photo-1440342359743-84fcb8c21c67?w=600&h=750&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1686310335921-38acc0679321?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     tag: "Adventure",
   },
 ];
