@@ -1,4 +1,4 @@
-const API_BASE = "https://journify-ai-backend.onrender.com/api";
+const API_BASE = "https://journify-ai-backend.onrender.com";
 
 /* ─── Helper ──────────────────────────────────────────────────── */
 async function request<T>(
