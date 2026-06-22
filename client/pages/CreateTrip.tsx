@@ -32,9 +32,9 @@ const INTERESTS = [
 ];
 
 const BUDGETS = [
-  { id: "budget", label: "Budget", desc: "₹0 - ₹10,000", emoji: "💰" },
-  { id: "medium", label: "Medium", desc: "₹10,000 - ₹25,000", emoji: "💳" },
-  { id: "luxury", label: "Luxury", desc: "₹25,000+", emoji: "💎" },
+  { id: "low", label: "Low", emoji: "💰" },
+  { id: "medium", label: "Medium", emoji: "💳" },
+  { id: "luxury", label: "Luxury", emoji: "💎" },
 ];
 
 /* ═══════════════════════════════════════════════════════════════ */
@@ -175,9 +175,6 @@ export default function CreateTrip() {
                         }`}
                       >
                         {b.label}
-                      </span>
-                      <span className="text-[10px] text-muted-foreground">
-                        {b.desc}
                       </span>
                     </button>
                   ))}

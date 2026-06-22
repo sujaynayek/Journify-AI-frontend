@@ -1,4 +1,10 @@
-const API_BASE = "https://journify-ai-backend.onrender.com/api";
+const API_BASE = "http://localhost:5000/api";
+
+/* ─── Auth token helper ───────────────────────────────────────── */
+function getAuthHeader(): HeadersInit {
+  const token = localStorage.getItem("journify_token");
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
 
 /* ─── Helper ──────────────────────────────────────────────────── */
 async function request<T>(
@@ -11,13 +17,14 @@ async function request<T>(
     res = await fetch(`${API_BASE}${url}`, {
       headers: {
         "Content-Type": "application/json",
+        ...getAuthHeader(),
         ...options?.headers,
       },
       ...options,
     });
   } catch (networkErr: any) {
     throw new Error(
-      "Cannot connect to the server. Make sure the backend is running on port 5000."
+      "Cannot connect to the server. Make sure the backend is running."
     );
   }
 
@@ -50,11 +57,13 @@ export interface GenerateParams {
 
 export async function generateItinerary(params: GenerateParams) {
   return request<{
-    itineraryId: string;
     city: string;
     days: number;
+    budget: string;
+    interests: string[];
     itineraryData: any[];
     costEstimate: any;
+    metadata: any;
   }>("/itinerary/generate", {
     method: "POST",
     body: JSON.stringify(params),
@@ -81,11 +90,52 @@ export async function getCostEstimate(params: {
   return request<any>(`/itinerary/cost?${query}`);
 }
 
-/* ─── Trip APIs ───────────────────────────────────────────────── */
-export async function saveTrip(data: {
+/* ─── Replan ──────────────────────────────────────────────────── */
+export async function replanItinerary(params: {
   itineraryId: string;
+  days?: number;
+  budget?: string;
+  interests?: string[];
+}) {
+  return request<any>("/itinerary/replan", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+/* ─── Places Search ───────────────────────────────────────────── */
+export async function searchPlaces(params: {
+  city: string;
+  categories: string[];
+  limit?: number;
+}) {
+  return request<any>("/places/search", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+/* ─── Route Optimization ──────────────────────────────────────── */
+export async function optimizeRoute(params: {
+  coordinates: number[][];
+  profile?: string;
+}) {
+  return request<any>("/route/optimize", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+/* ─── Trip APIs (auth required) ───────────────────────────────── */
+export async function saveTrip(data: {
   title: string;
-  notes?: string;
+  city: string;
+  days: number;
+  budget: string;
+  interests: string[];
+  itineraryData: any[];
+  costEstimate: any;
+  metadata?: any;
 }) {
   return request<any>("/trips", {
     method: "POST",
@@ -93,7 +143,7 @@ export async function saveTrip(data: {
   });
 }
 
-export async function getTrips(page = 1, limit = 10) {
+export async function getTrips(page = 1, limit = 20) {
   return request<any>(`/trips?page=${page}&limit=${limit}`);
 }
 
@@ -101,12 +151,33 @@ export async function getTripById(id: string) {
   return request<any>(`/trips/${id}`);
 }
 
+export async function deleteTrip(id: string) {
+  return request<any>(`/trips/${id}`, { method: "DELETE" });
+}
+
 /* ─── AI Enhancement ──────────────────────────────────────────── */
-export async function enhanceWithAI(itineraryId: string, prompt: string) {
+export async function enhanceWithAI(itinerary: any, prompt: string) {
   return request<any>("/ai/customize", {
     method: "POST",
-    body: JSON.stringify({ itineraryId, prompt }),
+    body: JSON.stringify({ itinerary, prompt }),
   });
+}
+
+/* ─── Weather Adaptive ────────────────────────────────────────── */
+export async function getWeatherAdaptive(params: {
+  city: string;
+  itineraryData: any[];
+  startDate?: string;
+}) {
+  return request<any>("/weather/adaptive", {
+    method: "POST",
+    body: JSON.stringify(params),
+  });
+}
+
+/* ─── Analytics ───────────────────────────────────────────────── */
+export async function getAnalyticsStats() {
+  return request<any>("/analytics/stats");
 }
 
 /* ─── Health Check ────────────────────────────────────────────── */

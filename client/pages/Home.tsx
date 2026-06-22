@@ -369,7 +369,7 @@ export default function Home() {
                         fontWeight: 600,
                       }}
                     >
-                      Trip To Goa
+                      Trip To Darjeeling
                     </h4>
                     <p className="text-xs text-muted-foreground font-body">
                       14-29 June &nbsp;|&nbsp; by Journify AI
