@@ -494,7 +494,7 @@ export default function ItineraryView() {
           <img
             src={`https://source.unsplash.com/1600x600/?${encodeURIComponent(city)},travel`}
             alt={city}
-            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1600&h=600&fit=crop"; }}
+            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1716741054532-6e047f4018a6?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"; }}
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/50 to-transparent" />

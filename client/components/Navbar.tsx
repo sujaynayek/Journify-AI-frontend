@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Bookmark, LogIn, LogOut, User, ChevronDown, Sparkles } from "lucide-react";
+import { Menu, X, Bookmark, LogIn, LogOut, User, ChevronDown, Navigation } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
@@ -88,7 +88,7 @@ export default function Navbar() {
             ))}
 
             <Link to="/create-trip" className="btn-primary text-sm !py-2.5 !px-6 inline-flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> Create Trip
+              <Navigation className="w-3.5 h-3.5" /> Create Trip
             </Link>
 
             {/* Auth section */}

@@ -6,6 +6,7 @@ import {
   Users,
   Calendar,
   Sparkles,
+  Navigation,
   Loader2,
   Minus,
   Plus,
@@ -280,7 +281,7 @@ export default function CreateTrip() {
                   </>
                 ) : (
                   <>
-                    <Sparkles className="w-6 h-6" />
+                    <Navigation className="w-6 h-6" />
                     GENERATE MY ITINERARY
                   </>
                 )}
